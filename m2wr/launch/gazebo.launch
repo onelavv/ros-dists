@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+<!-- Аргумент который будет содержать значение переданное из вне-->
+<arg name="load_robot_description" default="true"/>
+<!--Просто разрешение конфликта множественной загрузки модели робота
+на сервер ROS-->
+<group if="$(arg load_robot_description)">
+<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find m2wr)/urdf/m2wr.urdf.xacro'" />
+</group>
+<!--Данная команда встраивает уже имеющийся файл launch по запуску
+пустого мира -->
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+<arg name="world_name" value="worlds/empty.world"/>
+<arg name="gui" value="true"/>
+</include>
+<!-- Данная нода встраивает нашу модель URDF робота в сцену симуляции--><node name="m2wr_spawn" pkg="gazebo_ros" type="spawn_model"
+output="screen" args="-urdf -param robot_description -model m2wr" />
+</launch>
