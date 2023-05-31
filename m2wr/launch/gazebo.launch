@@ -10,7 +10,7 @@
 <!--Данная команда встраивает уже имеющийся файл launch по запуску
 пустого мира -->
 <include file="$(find gazebo_ros)/launch/empty_world.launch">
-<arg name="world_name" value="worlds/empty.world"/>
+<arg name="world_name" value="$(find m2wr)/worlds/shapes.world"/>
 <arg name="gui" value="true"/>
 </include>
 <!-- Данная нода встраивает нашу модель URDF робота в сцену симуляции--><node name="m2wr_spawn" pkg="gazebo_ros" type="spawn_model"
